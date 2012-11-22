@@ -6,7 +6,7 @@ require 'json'
 get '/' do
   #url = 'http://www.dwidigitalcameras.com.au/astore/Sigma-Lenses.aspx'
   url = 'offline/Sigma-Lenses.aspx'
-  get_lenses(url).to_json
+  erb :index, :locals => { :lenses_json => get_lenses(url).to_json }
 end
 
 def get_lenses(url)
