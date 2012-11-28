@@ -31,7 +31,7 @@ class LensCollection
         xpath("ancestor::table[1]").
         css('.highlight')
 
-      hash = {
+      lens = {
         name:           element_with_name.text,
         link:           element_with_name.first.attribute('href').text,
         aperture:       element_with_name.text[/f[0-9.-]+/i],
@@ -39,31 +39,33 @@ class LensCollection
         price:          element_with_price.text[/\$[0-9.]+/]
       }
 
-      if hash[:aperture]
-        parts = hash[:aperture].scan(/f([0-9.]+)-([0-9.]+)/i).flatten
-        if parts.any?
-          hash[:aperture_min] = parts.first
-          hash[:aperture_max] = parts.last
-        elsif aperture = hash[:aperture][/[0-9.]+/]
-          hash[:aperture_min] = hash[:aperture_max] = aperture
-        end
+      # Only care about proper lenses (not teleconverters, etc.)
+      next unless lens[:aperture] || lens[:focal_length]
+
+      # Find minimum and maximum aperture
+      parts = lens[:aperture].scan(/f([0-9.]+)-([0-9.]+)/i).flatten
+      if parts.any?
+        lens[:aperture_min] = parts.first
+        lens[:aperture_max] = parts.last
+      elsif aperture = lens[:aperture][/[0-9.]+/]
+        lens[:aperture_min] = lens[:aperture_max] = aperture
       end
 
-      if hash[:focal_length]
-        parts = hash[:focal_length].scan(/([0-9.]+)-([0-9.]+)mm/i).flatten
-        if parts.any?
-          hash[:focal_length_min] = parts.first
-          hash[:focal_length_max] = parts.last
-        elsif focal_length = hash[:focal_length][/[0-9.]+/]
-          hash[:focal_length_min] = hash[:focal_length_max] = focal_length
-        end
+      # Find minimum and maximum focal length
+      parts = lens[:focal_length].scan(/([0-9.]+)-([0-9.]+)mm/i).flatten
+      if parts.any?
+        lens[:focal_length_min] = parts.first
+        lens[:focal_length_max] = parts.last
+      elsif focal_length = lens[:focal_length][/[0-9.]+/]
+        lens[:focal_length_min] = lens[:focal_length_max] = focal_length
       end
 
-      min = [hash[:focal_length_min], hash[:aperture_min] ]
-      max = [hash[:focal_length_max], hash[:aperture_max] ]
-      hash[:plot] = min == max ? [min] : [min, max]
+      # Generate coodinates of points to plot on a chart
+      min = [lens[:focal_length_min], lens[:aperture_min] ]
+      max = [lens[:focal_length_max], lens[:aperture_max] ]
+      lens[:plot] = min == max ? [min] : [min, max]
 
-      lenses << hash
+      lenses << lens
 
     end
 

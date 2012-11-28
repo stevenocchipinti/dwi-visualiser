@@ -1,8 +1,8 @@
-<p>
-  Below is a visualization of the <em>Sigma</em> lenses from DWI
+<p id="info">
+  Click a point on a lense...
 </p>
 
-<div id="graph"/>
+<div id="graph"></div>
 
 <script>
   $(function () {
@@ -13,11 +13,21 @@
     $.each(lenses, function(index, value) {
       data.push({
         data: value['plot'],
+        label: value['name'] + " - " + value['price'],
         lines: { show: true },
         points: { show: true }
       });
     });
 
-    $.plot($("#graph"), data);
+    $.plot($("#graph"), data, {
+      grid: { clickable: true },
+      legend: { show: false }
+    });
+
+    $("#graph").bind("plotclick", function (event, pos, item) {
+      if (item)
+        $("#info").text(item.series.label);
+    });
+
   });
 </script>
