@@ -32,26 +32,36 @@ class LensBrand
         css('.highlight')
 
       hash = {
-        name:   element_with_name.text,
-        link:   element_with_name.first.attribute('href').text,
-        price:  element_with_price.text[/\$[0-9.]+/]
+        name:           element_with_name.text,
+        link:           element_with_name.first.attribute('href').text,
+        aperture:       element_with_name.text[/f[0-9.-]+/i],
+        focal_length:   element_with_name.text[/[0-9.-]+mm/i],
+        price:          element_with_price.text[/\$[0-9.]+/]
       }
 
-      if hash[:aperture] = hash[:name][/f[0-9.-]+/i]
+      if hash[:aperture]
         parts = hash[:aperture].scan(/f([0-9.]+)-([0-9.]+)/i).flatten
         if parts.any?
-          hash[:aperture_min] = "F#{parts.first}"
-          hash[:aperture_max] = "F#{parts.last}"
+          hash[:aperture_min] = parts.first
+          hash[:aperture_max] = parts.last
+        elsif aperture = hash[:aperture][/[0-9.]+/]
+          hash[:aperture_min] = hash[:aperture_max] = aperture
         end
       end
 
-      if hash[:focal_length] = hash[:name][/[0-9.-]+mm/i]
+      if hash[:focal_length]
         parts = hash[:focal_length].scan(/([0-9.]+)-([0-9.]+)mm/i).flatten
         if parts.any?
-          hash[:focal_length_min] = "#{parts.first}mm"
-          hash[:focal_length_max] = "#{parts.last}mm"
+          hash[:focal_length_min] = parts.first
+          hash[:focal_length_max] = parts.last
+        elsif focal_length = hash[:focal_length][/[0-9.]+/]
+          hash[:focal_length_min] = hash[:focal_length_max] = focal_length
         end
       end
+
+      min = [hash[:focal_length_min], hash[:aperture_min] ]
+      max = [hash[:focal_length_max], hash[:aperture_max] ]
+      hash[:plot] = min == max ? [min] : [min, max]
 
       lenses << hash
 
