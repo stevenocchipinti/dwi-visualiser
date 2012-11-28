@@ -9,6 +9,8 @@ get '/' do
   erb :index, :locals => { :lenses_json => get_lenses(url).to_json }
 end
 
+
+
 def get_lenses(url)
 
   # Find the element with the pricetag

@@ -10,6 +10,8 @@ body {
 h1 {
   text-align: center;
 }
-canvas {
+#graph {
   border: 1px solid #eee;
+  width: 800px;
+  height: 500px;
 }
