@@ -34,13 +34,13 @@ class LensCollection
       lens = {
         name:           element_with_name.text,
         link:           element_with_name.first.attribute('href').text,
-        aperture:       element_with_name.text[/f[0-9.-]+/i],
+        aperture:       element_with_name.text[/\bf\/?[0-9.-]+/i],
         focal_length:   element_with_name.text[/[0-9.-]+mm/i],
         price:          element_with_price.text[/\$[0-9.]+/]
       }
 
       # Only care about proper lenses (not teleconverters, etc.)
-      next unless lens[:aperture] || lens[:focal_length]
+      next if !lens[:aperture] || !lens[:focal_length]
 
       # Find minimum and maximum aperture
       parts = lens[:aperture].scan(/f([0-9.]+)-([0-9.]+)/i).flatten
