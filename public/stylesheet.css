@@ -5,11 +5,22 @@ body {
   background-color: #fff;
   padding: 40px;
 }
+.navbar {
+  margin-bottom: 50px;
+}
 h1 {
   text-align: center;
-  padding-bottom: 70px;
+  padding-bottom: 60px;
+  font-family: 'Text Me One', sans-serif;
+  font-size: 60px;
+  color: #777;
 }
 #graph {
   width: 600px;
   height: 500px;
+}
+.poweredby {
+  float: right;
+  padding: 10px;
+  margin: 0px;
 }
