@@ -15,6 +15,7 @@
 <div class="row">
   <div class="span8">
     <div id="graph"></div>
+    <div id="slider-range"></div>
   </div>
   <div class="span4">
     <p id="info"> Click a point on a lense...  </p>
@@ -24,9 +25,9 @@
 <script>
   $(function () {
 
-    lenses = <%= lenses_json %>;
+    var lenses = <%= lenses_json %>;
 
-    data = []
+    var data = []
     $.each(lenses, function(index, value) {
       data.push({
         data: value['plot'],
@@ -36,15 +37,36 @@
       });
     });
 
-    $.plot($("#graph"), data, {
+    var options = {
       grid: { clickable: true },
       legend: { show: false }
-    });
-
+    }
+    $.plot($("#graph"), data, options);
     $("#graph").bind("plotclick", function (event, pos, item) {
+      // TODO: Show inidividual lens attributes
       if (item)
         $("#info").text(item.series.label);
     });
+
+    $(function() {
+      $("#slider-range").slider({
+        range: true,
+        min: 0,    // TODO: Calculate the actual minimum and maximum
+        max: 500,
+        values: [0, 500],
+        slide: function(event, ui) {
+          zoom(ui.values[0], ui.values[1]);
+        }
+      });
+    });
+
+    function zoom(minimum, maximum) {
+      $.plot($("#graph"), data,
+        $.extend(true, {}, options, {
+          xaxis: { min: minimum, max: maximum }
+        })
+      );
+    }
 
   });
 </script>
