@@ -30,8 +30,9 @@ h1 {
   padding: 10px;
   margin: 0px;
 }
-.lens-data {
-  padding-top: 30px;
+.lens-data h4 {
+  height: 40px;
+  padding-bottom: 20px;
 }
 .lens-data label {
   color: #555;
