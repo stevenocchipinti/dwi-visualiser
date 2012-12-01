@@ -31,6 +31,7 @@ class LensCollection
         xpath("ancestor::table[1]").
         css('.highlight')
 
+      # TODO: Get picture url
       lens = {
         name:           element_with_name.text,
         link:           element_with_name.first.attribute('href').text,

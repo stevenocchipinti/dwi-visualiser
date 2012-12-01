@@ -41,7 +41,7 @@ $(function () {
   });
 
   $(function() {
-    $("#slider-range").slider({
+    $("#zoom-slider").slider({
       range: true,
       min: 0,    // TODO: Calculate the actual minimum and maximum
       max: 500,
@@ -70,7 +70,7 @@ $(function () {
         $.each(lenses, function(index, value) {
           data.push({
             data: value['plot'],
-            label: value['name'] + " - " + value['price'],
+            label: value['name'],
             lines: { show: true },
             points: { show: true }
           });

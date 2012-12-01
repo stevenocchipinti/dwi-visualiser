@@ -8,8 +8,11 @@ body {
 .navbar {
   margin-bottom: 50px;
 }
-h1 {
+h1, h2, h3, h4, h5, h6 {
   text-align: center;
+  color: #777;
+}
+h1 {
   padding-bottom: 60px;
   font-family: 'Text Me One', sans-serif;
   font-size: 60px;
@@ -19,8 +22,30 @@ h1 {
   width: 600px;
   height: 500px;
 }
+#zoom-slider {
+  margin-top: 20px;
+}
 .poweredby {
   float: right;
   padding: 10px;
   margin: 0px;
+}
+.lens-data {
+  padding-top: 30px;
+}
+.lens-data label {
+  color: #555;
+  font-family: serif;
+  padding: 5px 0px;
+  line-height: 30px;
+  font-size: 20px;
+}
+.lens-data input {
+  height: 30px;
+  font-size: 30px;
+}
+.lens-data img {
+  padding: 3px;
+  border: 1px solid #AAA;
+  margin: 30px;
 }
