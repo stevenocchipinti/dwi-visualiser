@@ -1,72 +1,49 @@
-<div class="navbar">
-  <div class="navbar-inner">
-    <a class="brand" href="#">Lenses</a>
-    <ul class="nav">
-      <li><a href="#">Nikon</a></li>
-      <li><a href="#">Canon</a></li>
-      <li class="active"><a href="#">Sigma</a></li>
-      <li><a href="#">Tamron</a></li>
-      <li><a href="#">Tokina</a></li>
-    </ul>
-    <p class="poweredby">Powered by <a href="http://www.dwidigitalcameras.com.au">DWI Digital Cameras</a></p>
-  </div>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DWI Lens Visualiser</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="lib/slider/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
+    <link href='http://fonts.googleapis.com/css?family=Text+Me+One' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="container">
 
-<div class="row">
-  <div class="span8">
-    <div id="graph"></div>
-    <div id="slider-range"></div>
-  </div>
-  <div class="span4">
-    <p id="info"> Click a point on a lense...  </p>
-  </div>
-</div>
 
-<script>
-  $(function () {
+      <h1>DWI Lens Visualiser</h1>
 
-    var lenses = <%= lenses_json %>;
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="brand" href="#">Lenses</a>
+          <ul class="nav">
+            <li class="active"><a class="nikon-link" href="#">Nikon</a></li>
+            <li><a class="canon-link" href="#">Canon</a></li>
+            <li><a class="sigma-link" href="#">Sigma</a></li>
+            <li><a class="tamron-link" href="#">Tamron</a></li>
+            <li><a class="tokina-link" href="#">Tokina</a></li>
+          </ul>
+          <p class="poweredby">Powered by <a href="http://www.dwidigitalcameras.com.au">DWI Digital Cameras</a></p>
+        </div>
+      </div>
 
-    var data = []
-    $.each(lenses, function(index, value) {
-      data.push({
-        data: value['plot'],
-        label: value['name'] + " - " + value['price'],
-        lines: { show: true },
-        points: { show: true }
-      });
-    });
+      <div class="row">
+        <div class="span8">
+          <div id="graph"></div>
+          <div id="slider-range"></div>
+        </div>
+        <div class="span4">
+          <p id="info"> Click a point on a lense...  </p>
+        </div>
+      </div>
 
-    var options = {
-      grid: { clickable: true },
-      legend: { show: false }
-    }
-    $.plot($("#graph"), data, options);
-    $("#graph").bind("plotclick", function (event, pos, item) {
-      // TODO: Show inidividual lens attributes
-      if (item)
-        $("#info").text(item.series.label);
-    });
 
-    $(function() {
-      $("#slider-range").slider({
-        range: true,
-        min: 0,    // TODO: Calculate the actual minimum and maximum
-        max: 500,
-        values: [0, 500],
-        slide: function(event, ui) {
-          zoom(ui.values[0], ui.values[1]);
-        }
-      });
-    });
+    </div>
 
-    function zoom(minimum, maximum) {
-      $.plot($("#graph"), data,
-        $.extend(true, {}, options, {
-          xaxis: { min: minimum, max: maximum }
-        })
-      );
-    }
-
-  });
-</script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/jquery-ui.js"></script>
+    <script src="lib/jquery.flot.js"></script>
+    <%# <script src="lib/bootstrap/js/bootstrap.min.js"></script> %>
+    <script src="dwi.js"></script>
+  </body>
+</html>
