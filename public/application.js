@@ -7,10 +7,13 @@ $(function () {
   }
   $("#graph").bind("plotclick", function (event, pos, item) {
     if (item) {
-      $("#info").text(item.series.label);
       $("#focalLength").val(item.series.info['focal_length']);
       $("#aperture").val(item.series.info['aperture']);
       $("#price").val(item.series.info['price']);
+      $("#link").text(item.series.label);
+      $("#link").attr('href', item.series.info['link']);
+      $("#preview").attr('src', item.series.info['image']);
+      $("#preview-link").attr('href', item.series.info['link']);
     }
   });
 

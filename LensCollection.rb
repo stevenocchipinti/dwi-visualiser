@@ -6,6 +6,8 @@ class LensCollection
 
   attr_accessor :lenses
 
+  DWI_URL = 'http://www.dwidigitalcameras.com.au'
+
   def initialize(url)
     @lenses = get_lenses(url)
   end
@@ -25,19 +27,19 @@ class LensCollection
     doc = Nokogiri::HTML(open(url))
 
     lenses = []
-    doc.xpath('//div[contains(text(), "$")]').each do |element_with_price|
+    doc.xpath('//div[contains(text(), "$")]').each do |price_element|
 
-      element_with_name = element_with_price.
-        xpath("ancestor::table[1]").
-        css('.highlight')
+      containing_element = price_element.xpath("ancestor::table[1]")
+      name_element = containing_element.css('.highlight')
+      image_element = containing_element.xpath("ancestor::table[1]//img")
 
-      # TODO: Get picture url
       lens = {
-        name:           element_with_name.text,
-        link:           element_with_name.first.attribute('href').text,
-        aperture:       element_with_name.text[/\bf\/?[0-9.-]+/i],
-        focal_length:   element_with_name.text[/[0-9.-]+mm/i],
-        price:          element_with_price.text[/\$[0-9.]+/]
+        name:          name_element.text,
+        link:          DWI_URL + name_element.first.attribute('href').text,
+        image:         DWI_URL + image_element.first.attribute('src').text,
+        aperture:      name_element.text[/\bf\/?[0-9.-]+/i],
+        focal_length:  name_element.text[/[0-9.-]+mm/i],
+        price:         price_element.text[/\$[0-9.]+/]
       }
 
       # Only care about proper lenses (not teleconverters, etc.)
