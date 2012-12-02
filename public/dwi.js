@@ -5,15 +5,20 @@ $(function () {
     grid: { clickable: true },
     legend: { show: false }
   }
-  updateGraph("/nikon");
   $("#graph").bind("plotclick", function (event, pos, item) {
-    // TODO: Show inidividual lens attributes
     if (item) {
       $("#info").text(item.series.label);
+      $("#focalLength").val(item.series.info['focal_length']);
+      $("#aperture").val(item.series.info['aperture']);
+      $("#price").val(item.series.info['price']);
     }
   });
 
+  // Default to the first tab (Nikon)
+  updateGraph("/nikon");
 
+
+  // TODO: DRY this up!
   $('.nikon-link').click(function() {
     $('.nav li').removeClass('active');
     $(this).parent().addClass('active');
@@ -72,7 +77,8 @@ $(function () {
             data: value['plot'],
             label: value['name'],
             lines: { show: true },
-            points: { show: true }
+            points: { show: true },
+            info: value
           });
         });
         $.plot($("#graph"), data, options);

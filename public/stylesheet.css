@@ -10,7 +10,7 @@ body {
 }
 h1, h2, h3, h4, h5, h6 {
   text-align: center;
-  color: #777;
+  color: #888;
 }
 h1 {
   padding-bottom: 60px;
@@ -30,20 +30,21 @@ h1 {
   padding: 10px;
   margin: 0px;
 }
+
 .lens-data h4 {
   height: 40px;
   padding-bottom: 20px;
 }
 .lens-data label {
-  color: #555;
-  font-family: serif;
+  color: #999;
   padding: 5px 0px;
   line-height: 30px;
   font-size: 20px;
 }
 .lens-data input {
   height: 30px;
-  font-size: 30px;
+  font-size: 22px;
+  text-align: center;
 }
 .lens-data img {
   padding: 3px;
