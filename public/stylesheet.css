@@ -8,16 +8,23 @@ body {
 .navbar {
   margin-bottom: 50px;
 }
+.poweredby {
+  float: right;
+  padding: 10px;
+  margin: 0px;
+}
 h1, h2, h3, h4, h5, h6 {
   text-align: center;
   color: #888;
 }
 h1 {
   padding-bottom: 60px;
-  font-family: 'Text Me One', sans-serif;
-  font-size: 60px;
-  color: #777;
+  font-family: 'Oleo Script Swash Caps', cursive;
+  font-size: 70px;
+  color: #999;
+  text-shadow: #DDD 4px 4px;
 }
+
 #graph {
   width: 600px;
   height: 500px;
@@ -25,15 +32,10 @@ h1 {
 #zoom-slider {
   margin-top: 20px;
 }
-.poweredby {
-  float: right;
-  padding: 10px;
-  margin: 0px;
-}
 
 .lens-data h4 {
   height: 40px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 .lens-data h4 a {
   color: inherit;
