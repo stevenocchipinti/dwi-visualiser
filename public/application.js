@@ -48,18 +48,6 @@ $(function () {
     updateGraph("/tokina");
   });
 
-  $(function() {
-    $("#zoom-slider").slider({
-      range: true,
-      min: 0,    // TODO: Calculate the actual minimum and maximum
-      max: 500,
-      values: [0, 500],
-      slide: function(event, ui) {
-        zoom(ui.values[0], ui.values[1]);
-      }
-    });
-  });
-
   function zoom(minimum, maximum) {
     $.plot($("#graph"), data,
       $.extend(true, {}, options, {
@@ -74,17 +62,46 @@ $(function () {
       method: "GET",
       dataType: "json",
       success: function(lenses) {
-        data = [];
-        $.each(lenses, function(index, value) {
-          data.push({
-            data: value['plot'],
-            label: value['name'],
-            lines: { show: true },
-            points: { show: true },
-            info: value
-          });
-        });
-        $.plot($("#graph"), data, options);
+        drawGraph(lenses);
+      }
+    });
+  }
+
+  function drawGraph(lenses) {
+    data = [];
+    min_focal_length = parseInt(lenses[0]['plot'][0]);
+    max_focal_length = min_focal_length
+
+    $.each(lenses, function(index, lens) {
+      // Get all the data points to plot on the graph
+      data.push({
+        data: lens['plot'],
+        label: lens['name'],
+        lines: { show: true },
+        points: { show: true },
+        info: lens
+      });
+
+      // Find minimum and maximum
+      $.each(lens['plot'], function(index, value) {
+        if (parseInt(value[0]) < min_focal_length)
+          min_focal_length = parseInt(value[0])
+        if (parseInt(value[0]) > max_focal_length)
+          max_focal_length = parseInt(value[0])
+      });
+    });
+
+    // Draw the graph with the data!
+    $.plot($("#graph"), data, options);
+
+    // Draw the zoom slider!
+    $("#zoom-slider").slider({
+      range: true,
+      min: min_focal_length,
+      max: max_focal_length,
+      values: [min_focal_length, max_focal_length],
+      slide: function(event, ui) {
+        zoom(ui.values[0], ui.values[1]);
       }
     });
   }
