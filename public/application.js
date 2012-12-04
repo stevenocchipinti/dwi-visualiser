@@ -30,6 +30,7 @@ $(function () {
     return false;
   });
 
+  // Redraw the graph with data from a given url
   function updateGraph(url) {
     $.ajax({
       url: url,
@@ -41,6 +42,7 @@ $(function () {
     });
   }
 
+  // Draw the graph and all related view controls
   function drawGraph(lenses) {
     data = [];
     min_focal_length = parseInt(lenses[0]['plot'][0]);
