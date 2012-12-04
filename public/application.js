@@ -5,6 +5,8 @@ $(function () {
     grid: { clickable: true },
     legend: { show: false }
   }
+
+  // Make clicking on points work
   $("#graph").bind("plotclick", function (event, pos, item) {
     if (item) {
       $("#focalLength").val(item.series.info['focal_length']);
@@ -20,41 +22,13 @@ $(function () {
   // Default to the first tab (Nikon)
   updateGraph("/nikon");
 
-
-  // TODO: DRY this up!
-  $('.nikon-link').click(function() {
+  // Use the links in the navbar to update the graph
+  $('.update-graph').click(function() {
     $('.nav li').removeClass('active');
     $(this).parent().addClass('active');
-    updateGraph("/nikon");
+    updateGraph($(this)[0].href);
+    return false;
   });
-  $('.canon-link').click(function() {
-    $('.nav li').removeClass('active');
-    $(this).parent().addClass('active');
-    updateGraph("/canon");
-  });
-  $('.sigma-link').click(function() {
-    $('.nav li').removeClass('active');
-    $(this).parent().addClass('active');
-    updateGraph("/sigma");
-  });
-  $('.tamron-link').click(function() {
-    $('.nav li').removeClass('active');
-    $(this).parent().addClass('active');
-    updateGraph("/tamron");
-  });
-  $('.tokina-link').click(function() {
-    $('.nav li').removeClass('active');
-    $(this).parent().addClass('active');
-    updateGraph("/tokina");
-  });
-
-  function zoom(minimum, maximum) {
-    $.plot($("#graph"), data,
-      $.extend(true, {}, options, {
-        xaxis: { min: minimum, max: maximum }
-      })
-    );
-  }
 
   function updateGraph(url) {
     $.ajax({
@@ -106,5 +80,12 @@ $(function () {
     });
   }
 
+  function zoom(minimum, maximum) {
+    $.plot($("#graph"), data,
+      $.extend(true, {}, options, {
+        xaxis: { min: minimum, max: maximum }
+      })
+    );
+  }
 
 });
