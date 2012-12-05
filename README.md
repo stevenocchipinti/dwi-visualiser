@@ -4,6 +4,5 @@ DWI Lens Visualiser
 TODO
 ----
 
-- Hide lenses when part of the range is zoomed out of view
+- Show text boxes on the zoom slider to make it easy to zoom to a given range
 - Make a fluid layout to allow a wider graph on big screens
-- Put axis labels on the graph

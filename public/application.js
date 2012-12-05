@@ -60,7 +60,7 @@ $(function () {
     max_focal_length = min_focal_length
 
     $.each(lenses, function(index, lens) {
-      // Get all the data points to plot on the graph
+      // Get all the data points (in zoom range) to plot on the graph
       data.push({
         data: lens['plot'],
         label: lens['name'],
@@ -93,12 +93,27 @@ $(function () {
     });
   }
 
+  // Adjust the x axis of the graph
   function zoom(minimum, maximum) {
-    $.plot($("#graph"), data,
+    $.plot($("#graph"), getData(minimum, maximum),
       $.extend(true, {}, options, {
         xaxis: { min: minimum, max: maximum }
       })
     );
+  }
+
+  // Return a subset of the data
+  function getData(minimum, maximum) {
+    subset = [];
+    $.each(data, function(i, lens) {
+      push = true;
+      $.each(lens.data, function(j, coordinates) {
+        x = parseInt(coordinates[0]);
+        if (x < minimum || x > maximum) { push = false }
+      });
+      if (push) { subset.push(lens); }
+    });
+    return subset;
   }
 
 });
