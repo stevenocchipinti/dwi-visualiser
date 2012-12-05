@@ -1,9 +1,20 @@
 $(function () {
 
+  // The setup
   var data = [];
   var options = {
     grid: { clickable: true },
-    legend: { show: false }
+    legend: { show: false },
+    yaxis: {
+      tickFormatter: function(val, axis) {
+        return "F" + val.toFixed(1);
+      }
+    },
+    xaxis: {
+      tickFormatter: function(val, axis) {
+        return val.toFixed(0) + "mm";
+      }
+    }
   }
 
   // Make clicking on points work
