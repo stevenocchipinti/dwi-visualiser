@@ -32,6 +32,19 @@ h1 {
 #zoom-slider {
   margin-top: 20px;
 }
+.zoom-box {
+  text-align: center;
+  margin: 10px;
+  width: 30px;
+}
+#min-zoom {
+  float: left;
+  margin-left: -10px;
+}
+#max-zoom {
+  float: right;
+  margin-right: -10px;
+}
 
 .lens-data h4 {
   height: 40px;
