@@ -64,6 +64,7 @@ $(function () {
       data.push({
         data: lens['plot'],
         label: lens['name'],
+        color: getColor(lens['price']),
         lines: { show: true },
         points: { show: true },
         info: lens
@@ -114,6 +115,21 @@ $(function () {
       if (push) { subset.push(lens); }
     });
     return subset;
+  }
+
+  // Generate RGB color between red and green
+  function getColor(price) {
+    price = parseInt(price.replace( /^\D+/g, ''));
+    if (price < 250)
+      return "rgb(0,255,0)";
+    else if (price < 500)
+      return "rgb(128,255,0)";
+    else if (price < 1000)
+      return "rgb(255,255,0)";
+    else if (price < 1500)
+      return "rgb(255,128,0)";
+    else
+      return "rgb(255,0,0)";
   }
 
 });
