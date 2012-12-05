@@ -1,7 +1,6 @@
 $(function () {
 
   // The setup
-  var data = [];
   var options = {
     grid: { clickable: true },
     legend: { show: false },
@@ -28,6 +27,24 @@ $(function () {
       $("#preview").attr('src', item.series.info['image']);
       $("#preview-link").attr('href', item.series.info['link']);
     }
+  });
+
+  // Make changing the zoom text boxes, actually zoom the graph
+  $(".zoom-box").change(function() {
+    var absMin = parseInt($("#zoom-slider").slider('option', 'min'));
+    var absMax = parseInt($("#zoom-slider").slider('option', 'max'));
+    var min = parseInt($("#min-zoom").val());
+    var max = parseInt($("#max-zoom").val());
+    var xaxis = {};
+    if (min && min >= absMin && min < max) {
+      $("#zoom-slider").slider("values", 0, min);
+      xaxis['min'] = min;
+    }
+    if (max && max <= absMax && min < max) {
+      $("#zoom-slider").slider("values", 1, max);
+      xaxis['max'] = max;
+    }
+    zoomX(xaxis);
   });
 
   // Default to the first tab (Nikon)
@@ -88,17 +105,21 @@ $(function () {
       max: max_focal_length,
       values: [min_focal_length, max_focal_length],
       slide: function(event, ui) {
-        zoom(ui.values[0], ui.values[1]);
+        zoomX({"min": ui.values[0], "max": ui.values[1]});
       }
     });
+    $("#min-zoom").val(min_focal_length);
+    $("#max-zoom").val(max_focal_length);
   }
 
-  function zoom(minimum, maximum) {
+  function zoomX(xAxisOptions) {
     $.plot($("#graph"), data,
       $.extend(true, {}, options, {
-        xaxis: { min: minimum, max: maximum }
+        xaxis: xAxisOptions
       })
     );
+    if (xAxisOptions["min"]) { $("#min-zoom").val(xAxisOptions["min"]); }
+    if (xAxisOptions["max"]) { $("#max-zoom").val(xAxisOptions["max"]); }
   }
 
 });
