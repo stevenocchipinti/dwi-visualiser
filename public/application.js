@@ -1,7 +1,6 @@
 $(function () {
 
   // The setup
-  var data = [];
   var options = {
     grid: { clickable: true },
     legend: { show: false },
@@ -89,18 +88,48 @@ $(function () {
       max: max_focal_length,
       values: [min_focal_length, max_focal_length],
       slide: function(event, ui) {
-        zoom(ui.values[0], ui.values[1]);
+        zoomX({"min": ui.values[0], "max": ui.values[1]});
       }
     });
+    $("#min-zoom").val(min_focal_length);
+    $("#max-zoom").val(max_focal_length);
   }
 
-  // Adjust the x axis of the graph
-  function zoom(minimum, maximum) {
-    $.plot($("#graph"), getData(minimum, maximum),
+  // Make changing the zoom text boxes, actually zoom the graph
+  $(".zoom-box").change(function() {
+    var absMin = parseInt($("#zoom-slider").slider('option', 'min'));
+    var absMax = parseInt($("#zoom-slider").slider('option', 'max'));
+    var min = parseInt($("#min-zoom").val());
+    var max = parseInt($("#max-zoom").val());
+    var xaxis = {};
+    if (min && min >= absMin && min < max) {
+      xaxis['min'] = min;
+    }
+    if (max && max <= absMax && min < max) {
+      xaxis['max'] = max;
+    }
+    zoomX(xaxis);
+  });
+
+  // Zoom the x axis of the graph and update the related controls
+  function zoomX(xAxisOptions) {
+    min = xAxisOptions["min"];
+    max = xAxisOptions["max"];
+
+    $.plot($("#graph"), getData(min, max),
       $.extend(true, {}, options, {
-        xaxis: { min: minimum, max: maximum }
+        xaxis: xAxisOptions
       })
     );
+
+    if (min) {
+      $("#min-zoom").val(min);
+      $("#zoom-slider").slider("values", 0, min);
+    }
+    if (max) {
+      $("#max-zoom").val(max);
+      $("#zoom-slider").slider("values", 1, max);
+    }
   }
 
   // Return a subset of the data

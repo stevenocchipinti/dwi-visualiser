@@ -31,7 +31,13 @@
         <div class="span8">
 
           <div id="graph"></div>
-          <div id="zoom-slider"></div>
+
+          <div class="zoom-control control-group <%#error%>">
+            <div id="zoom-slider"></div>
+            <input type="text" id="min-zoom" class="zoom-box"/>
+            <input type="text" id="max-zoom" class="zoom-box"/>
+            <%# <div class="help-block">Invalid focal length range</div> %>
+          </div>
 
         </div>
 
