@@ -29,6 +29,10 @@ h1 {
   width: 600px;
   height: 500px;
 }
+.zoom-control .help-block {
+  text-align: center;
+  margin-top: 10px;
+}
 #zoom-slider {
   margin-top: 20px;
 }

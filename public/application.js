@@ -29,24 +29,6 @@ $(function () {
     }
   });
 
-  // Make changing the zoom text boxes, actually zoom the graph
-  $(".zoom-box").change(function() {
-    var absMin = parseInt($("#zoom-slider").slider('option', 'min'));
-    var absMax = parseInt($("#zoom-slider").slider('option', 'max'));
-    var min = parseInt($("#min-zoom").val());
-    var max = parseInt($("#max-zoom").val());
-    var xaxis = {};
-    if (min && min >= absMin && min < max) {
-      $("#zoom-slider").slider("values", 0, min);
-      xaxis['min'] = min;
-    }
-    if (max && max <= absMax && min < max) {
-      $("#zoom-slider").slider("values", 1, max);
-      xaxis['max'] = max;
-    }
-    zoomX(xaxis);
-  });
-
   // Default to the first tab (Nikon)
   updateGraph("/nikon");
 
@@ -112,14 +94,40 @@ $(function () {
     $("#max-zoom").val(max_focal_length);
   }
 
+  // Make changing the zoom text boxes, actually zoom the graph
+  $(".zoom-box").change(function() {
+    var absMin = parseInt($("#zoom-slider").slider('option', 'min'));
+    var absMax = parseInt($("#zoom-slider").slider('option', 'max'));
+    var min = parseInt($("#min-zoom").val());
+    var max = parseInt($("#max-zoom").val());
+    var xaxis = {};
+    if (min && min >= absMin && min < max) {
+      xaxis['min'] = min;
+    }
+    if (max && max <= absMax && min < max) {
+      xaxis['max'] = max;
+    }
+    zoomX(xaxis);
+  });
+
+  // Zoom the x axis of the graph and update the related controls
   function zoomX(xAxisOptions) {
     $.plot($("#graph"), data,
       $.extend(true, {}, options, {
         xaxis: xAxisOptions
       })
     );
-    if (xAxisOptions["min"]) { $("#min-zoom").val(xAxisOptions["min"]); }
-    if (xAxisOptions["max"]) { $("#max-zoom").val(xAxisOptions["max"]); }
+
+    if (xAxisOptions["min"]) {
+      min = xAxisOptions["min"];
+      $("#min-zoom").val(min);
+      $("#zoom-slider").slider("values", 0, min);
+    }
+    if (xAxisOptions["max"]) {
+      max = xAxisOptions["max"];
+      $("#max-zoom").val(max);
+      $("#zoom-slider").slider("values", 1, max);
+    }
   }
 
 });
