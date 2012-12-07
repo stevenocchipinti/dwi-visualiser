@@ -8,63 +8,57 @@
     <link href='http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <div class="container">
 
+    <h1>DWI Lens Visualiser</h1>
 
-      <h1>DWI Lens Visualiser</h1>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">Lenses</a>
+        <ul class="nav">
+          <li class="active"><a class="update-graph" href="/nikon">Nikon</a></li>
+          <li><a class="update-graph" href="/canon">Canon</a></li>
+          <li><a class="update-graph" href="/sigma">Sigma</a></li>
+          <li><a class="update-graph" href="/tamron">Tamron</a></li>
+          <li><a class="update-graph" href="/tokina">Tokina</a></li>
+        </ul>
+        <p class="poweredby">Powered by <a href="http://www.dwidigitalcameras.com.au">DWI Digital Cameras</a></p>
+      </div>
+    </div>
 
-      <div class="navbar">
-        <div class="navbar-inner">
-          <a class="brand" href="#">Lenses</a>
-          <ul class="nav">
-            <li class="active"><a class="update-graph" href="/nikon">Nikon</a></li>
-            <li><a class="update-graph" href="/canon">Canon</a></li>
-            <li><a class="update-graph" href="/sigma">Sigma</a></li>
-            <li><a class="update-graph" href="/tamron">Tamron</a></li>
-            <li><a class="update-graph" href="/tokina">Tokina</a></li>
-          </ul>
-          <p class="poweredby">Powered by <a href="http://www.dwidigitalcameras.com.au">DWI Digital Cameras</a></p>
-        </div>
+    <div class="content">
+
+      <div class="fixed-sidebar lens-data well">
+        <h4>
+          <a id="link" target="_blank">Click a point on a lense...</a>
+        </h4>
+        <label for="focalLength">Focal Length</label>
+        <input type="text" id="focalLength">
+        <label for="aperture">Aperture</label>
+        <input type="text" id="aperture">
+        <label for="price">Price</label>
+        <input type="text" id="price">
+        <label for="preview">Preview</label>
+        <a id="preview-link" target="_blank">
+          <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="lens image">
+        </a>
       </div>
 
-      <div class="row">
-        <div class="span8">
-
-          <div id="graph"></div>
-
-          <div class="zoom-control control-group <%#error%>">
-            <div id="zoom-slider"></div>
-            <input type="text" id="min-zoom" class="zoom-box"/>
-            <input type="text" id="max-zoom" class="zoom-box"/>
-            <%# <div class="help-block">Invalid focal length range</div> %>
-          </div>
-
+      <div class="auto-content">
+        <div id="graph"></div>
+        <div class="zoom-control control-group <%#error%>">
+          <div id="zoom-slider"></div>
+          <input type="text" id="min-zoom" class="zoom-box"/>
+          <input type="text" id="max-zoom" class="zoom-box"/>
+          <%# <div class="help-block">Invalid focal length range</div> %>
         </div>
-
-        <div class="span4 lens-data">
-          <h4>
-            <a id="link" target="_blank">Click a point on a lense...</a>
-          </h4>
-          <label class="span2" for="focalLength">Focal Length</label>
-          <input class="span2" type="text" id="focalLength">
-          <label class="span2" for="aperture">Aperture</label>
-          <input class="span2" type="text" id="aperture">
-          <label class="span2" for="price">Price</label>
-          <input class="span2" type="text" id="price">
-          <label class="span2" for="preview">Preview</label>
-          <a id="preview-link" target="_blank">
-            <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="lens image">
-          </a>
-        </div>
-
       </div>
-
 
     </div>
 
     <script src="lib/jquery.js"></script>
     <script src="lib/jquery-ui.js"></script>
     <script src="lib/jquery.flot.js"></script>
+    <script src="lib/jquery.flot.resize.js"></script>
     <%# <script src="lib/bootstrap/js/bootstrap.min.js"></script> %>
     <script src="application.js"></script>
   </body>

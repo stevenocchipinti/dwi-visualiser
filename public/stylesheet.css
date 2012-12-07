@@ -1,9 +1,8 @@
 body {
-  background-color: #f6f6f6;
-}
-.container {
+  /* background-color: #f6f6f6; */
   background-color: #fff;
   padding: 40px;
+  margin: 10px;
 }
 .navbar {
   margin-bottom: 50px;
@@ -25,8 +24,15 @@ h1 {
   text-shadow: #DDD 4px 4px;
 }
 
+
+.content {
+  position: relative;
+}
+.auto-content {
+  margin-right: 350px;
+}
 #graph {
-  width: 600px;
+  width: 100%;
   height: 500px;
 }
 .zoom-control .help-block {
@@ -50,30 +56,43 @@ h1 {
   margin-right: -10px;
 }
 
+
+.fixed-sidebar {
+  padding: 25px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 250px;
+}
 .lens-data h4 {
   height: 40px;
-  padding-bottom: 30px;
+  padding-bottom: 15px;
 }
 .lens-data h4 a {
   color: inherit;
 }
 .lens-data label {
+  width: 150px;
   color: #999;
-  padding: 5px 0px;
+  padding: 2px 0px;
   line-height: 30px;
   font-size: 20px;
 }
 .lens-data input {
+  width: 230px;
   height: 30px;
   font-size: 22px;
   text-align: center;
 }
+.lens-data #preview-link {
+  padding-left: 55px;
+}
 .lens-data img {
   height: 120px;
   width: 120px;
-  float: right;
   padding: 9px;
   border: 1px solid #CCC;
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  background-color: white;
 }
