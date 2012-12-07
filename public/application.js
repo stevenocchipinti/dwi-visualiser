@@ -149,11 +149,12 @@ $(function () {
   // Generate RGB color between red and green
   function getColor(price) {
     price = parseInt(price.replace( /^\D+/g, ''));
-    if (price > 1000) {
+    expensive = 1000;
+    if (price > expensive) {
       return "rgb(255,0,0)";
     } else {
-      x = parseInt((price / 1000) * 512)
-      return x < 512 ? "rgb(255,"+x+",0)" : "rgb("+x+",255,0)";
+      x = parseInt((price / expensive) * 512)
+      return x < 256 ? "rgb("+x+",255,0)" : "rgb(255,"+x+",0)";
     }
   }
 
