@@ -79,10 +79,11 @@ h1 {
   line-height: 30px;
   font-size: 20px;
 }
-.lens-data input {
+.lens-data .uneditable-input {
   width: 230px;
   height: 30px;
   font-size: 22px;
+  line-height: 30px;
   text-align: center;
 }
 .lens-data #preview-link {

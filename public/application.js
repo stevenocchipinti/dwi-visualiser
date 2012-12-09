@@ -19,9 +19,9 @@ $(function () {
   // Make clicking on points work
   $("#graph").bind("plotclick", function (event, pos, item) {
     if (item) {
-      $("#focalLength").val(item.series.info['focal_length']);
-      $("#aperture").val(item.series.info['aperture']);
-      $("#price").val(item.series.info['price']);
+      $("#focalLength").text(item.series.info['focal_length']);
+      $("#aperture").text(item.series.info['aperture']);
+      $("#price").text(item.series.info['price']);
       $("#link").text(item.series.label);
       $("#link").attr('href', item.series.info['link']);
       $("#preview").attr('src', item.series.info['image']);
