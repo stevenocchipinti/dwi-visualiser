@@ -30,7 +30,7 @@ $(function () {
   });
 
   // Default to the first tab (Nikon)
-  updateGraph("/nikon");
+  updateGraph("/lenses/nikon");
 
   // Use the links in the navbar to update the graph
   $('.update-graph').click(function() {

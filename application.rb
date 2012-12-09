@@ -5,8 +5,11 @@ get '/' do
   erb :index
 end
 
-get '/:brand' do |brand|
-  #url = 'http://www.dwidigitalcameras.com.au/astore/Nikon-Lenses.aspx'
-  url = "offline/#{brand.capitalize!}-Lenses.aspx"
+get '/lenses/:brand' do |brand|
+  if ENV['SINATRA_ENV'] == 'production'
+    url = "http://www.dwidigitalcameras.com.au/astore/#{brand.capitalize!}-Lenses.aspx"
+  else
+    url = "offline/#{brand.capitalize!}-Lenses.aspx"
+  end
   Scraper.new(url).to_json
 end
