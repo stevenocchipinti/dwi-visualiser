@@ -1,6 +1,8 @@
 DWI Lens Visualiser
 ===================
 
+![](http://github.com/stevenocchipinti/dwi-visualiser/raw/master/dwi-visualiser.png)
+
 Status
 ------
 
