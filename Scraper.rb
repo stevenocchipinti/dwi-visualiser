@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'json'
 
-class LensCollection
+class Scraper
 
   attr_accessor :lenses
 
