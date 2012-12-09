@@ -40,6 +40,11 @@ $(function () {
     return false;
   });
 
+  $('#loadingSpinner')
+    .hide()  // hide it initially
+    .ajaxStart(function() { $(this).show(); })
+    .ajaxStop(function()  { $(this).hide(); });
+
   // Redraw the graph with data from a given url
   function updateGraph(url) {
     $.ajax({
