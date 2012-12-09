@@ -1,5 +1,8 @@
 $(function () {
 
+  // Hide the graph's related controls until the data is loaded
+  $('.zoom-box').hide();
+
   // The setup
   var options = {
     grid: { clickable: true },
@@ -41,7 +44,6 @@ $(function () {
   });
 
   $('#loadingSpinner')
-    .hide()  // hide it initially
     .ajaxStart(function() { $(this).show(); })
     .ajaxStop(function()  { $(this).hide(); });
 
@@ -96,8 +98,8 @@ $(function () {
         zoomX({"min": ui.values[0], "max": ui.values[1]});
       }
     });
-    $("#min-zoom").val(min_focal_length);
-    $("#max-zoom").val(max_focal_length);
+    $("#min-zoom").show().val(min_focal_length);
+    $("#max-zoom").show().val(max_focal_length);
   }
 
   // Make changing the zoom text boxes, actually zoom the graph
