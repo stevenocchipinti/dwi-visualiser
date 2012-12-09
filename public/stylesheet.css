@@ -72,6 +72,9 @@ h1 {
 .lens-data h4 a {
   color: inherit;
 }
+.lens-data .icon-share {
+  opacity: 0.3;
+}
 .lens-data label {
   width: 150px;
   color: #999;

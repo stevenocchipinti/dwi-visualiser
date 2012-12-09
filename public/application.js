@@ -1,7 +1,8 @@
 $(function () {
 
-  // Hide the graph's related controls until the data is loaded
+  // Hide these elements until they are needed (i.e. data loaded, etc.)
   $('.zoom-box').hide();
+  $('#link-icon').hide();
 
   // The setup
   var options = {
@@ -27,6 +28,7 @@ $(function () {
       $("#price").text(item.series.info['price']);
       $("#link").text(item.series.label);
       $("#link").attr('href', item.series.info['link']);
+      $("#link-icon").show();
       $("#preview").attr('src', item.series.info['image']);
       $("#preview-link").attr('href', item.series.info['link']);
     }
