@@ -1,5 +1,5 @@
 require 'sinatra'
-require './Scraper.rb'
+require './DwiScraper'
 
 get '/' do
   erb :index
@@ -11,5 +11,5 @@ get '/lenses/:brand' do |brand|
   else
     url = "offline/#{brand.capitalize!}-Lenses.aspx"
   end
-  Scraper.new(url).to_json
+  DwiScraper.new(url).to_json
 end
