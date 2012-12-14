@@ -9,7 +9,6 @@ class Lens
     })
 
     # Only care about proper lenses (not teleconverters, etc.)
-    puts @lens
     if !@lens[:focal_length] || !@lens[:aperture]
       raise "Must have a focal length and an aperture"
     end
