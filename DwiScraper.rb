@@ -1,21 +1,21 @@
 require 'nokogiri'
 require 'open-uri'
 require 'json'
-require './Scraper'
+require './Lens'
 
 class DwiScraper
-  include Scraper
 
   attr_accessor :lenses
-
   DWI_URL = 'http://www.dwidigitalcameras.com.au'
+
 
   def initialize(url)
     @lenses = get_lenses(url)
   end
 
-  def to_json
-    @lenses.to_json
+
+  def to_json(*opts)
+    @lenses.to_json(*opts)
   end
 
 
@@ -29,43 +29,37 @@ class DwiScraper
     doc = Nokogiri::HTML(open(url))
 
     lenses = []
-    stats = {:parsed => 0, :failed => 0}
+    @stats = { parsed: 0, failed: 0 }
     doc.xpath('//div[contains(text(), "$")]').each do |price_element|
 
       begin
-
         containing_element = price_element.xpath("ancestor::table[1]")
         name_element = containing_element.css('.highlight')
         image_element = containing_element.xpath("ancestor::table[1]//img")
 
-        lens = {
-          name:          name_element.text,
-          link:          DWI_URL + name_element.first.attribute('href').text,
-          image:         DWI_URL + image_element.first.attribute('src').text,
-          aperture:      name_element.text[/\bf\/?[0-9.-]+/i],
-          focal_length:  name_element.text[/[0-9.-]+mm/i],
-          price:         price_element.text[/\$[0-9.]+/]
-        }
-
-        # Only care about proper lenses (not teleconverters, etc.)
-        next if !lens[:aperture] || !lens[:focal_length]
-
-        split_aperture!(lens)
-        split_focal_length!(lens)
-        generate_plot!(lens)
-
-        lenses << lens
-        stats[:parsed] += 1
-
+        lenses << Lens.new(
+          name:  name_element.text,
+          link:  DWI_URL + name_element.first.attribute('href').text,
+          image: DWI_URL + image_element.first.attribute('src').text,
+          price: price_element.text
+        )
+        @stats[:parsed] += 1
       rescue
-        stats[:failed] += 1
+        @stats[:failed] += 1
         next
       end
 
     end
 
-    $stderr.puts "Could not parse #{stats[:failed]} lenses!" if stats[:failed] > 0
+    print_report
     lenses
+  end
+
+
+  def print_report
+    $stderr.puts "Report:"
+    $stderr.puts "  Parsed lenses: #{@stats[:parsed]}"
+    $stderr.puts "  Failed lenses: #{@stats[:failed]}"
   end
 
 end
