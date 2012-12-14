@@ -28,27 +28,25 @@ class Lens
   private
 
 
-  # TODO: DRY up these 2 methods
   # Find minimum and maximum aperture
   def split_aperture!
-    parts = @lens[:aperture].scan(/f([0-9.]+)-([0-9.]+)/i).flatten
-    if parts.any?
-      @lens[:aperture_min] = parts.first
-      @lens[:aperture_max] = parts.last
-    elsif aperture = @lens[:aperture][/[0-9.]+/]
-      @lens[:aperture_min] = @lens[:aperture_max] = aperture
-    end
+    split_range!(:aperture, /f([0-9.]+)-([0-9.]+)/i)
   end
 
 
   # Find minimum and maximum focal length
   def split_focal_length!
-    parts = @lens[:focal_length].scan(/([0-9.]+)-([0-9.]+)mm/i).flatten
+    split_range!(:focal_length, /([0-9.]+)-([0-9.]+)mm/i)
+  end
+
+
+  def split_range!(key, regex)
+    parts = @lens[key].scan(regex).flatten
     if parts.any?
-      @lens[:focal_length_min] = parts.first
-      @lens[:focal_length_max] = parts.last
-    elsif focal_length = @lens[:focal_length][/[0-9.]+/]
-      @lens[:focal_length_min] = @lens[:focal_length_max] = focal_length
+      @lens["#{key}_min".to_sym] = parts.first
+      @lens["#{key}_max".to_sym] = parts.last
+    elsif only_element = @lens[key][/[0-9.]+/]
+      @lens["#{key}_min".to_sym] = @lens["#{key}_max".to_sym] = only_element
     end
   end
 
