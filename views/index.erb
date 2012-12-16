@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>DWI Lens Visualiser</title>
+    <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" media="screen" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="lib/slider/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
@@ -26,7 +27,6 @@
     </div>
 
     <div class="content">
-
       <div class="fixed-sidebar lens-data well">
         <h4>
           <a id="link" target="_blank">Click a point on a lense...</a>
@@ -39,9 +39,11 @@
         <label for="price">Price</label>
         <span class="uneditable-input" id="price"></span>
         <label for="preview">Preview</label>
-        <a id="preview-link" target="_blank">
-          <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="lens image">
-        </a>
+        <div class="preview">
+          <a id="preview-link" target="_blank">
+            <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="lens image">
+          </a>
+        </div>
       </div>
 
       <div class="auto-content">
