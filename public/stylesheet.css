@@ -133,7 +133,4 @@ and (max-width : 700px) {
   .navbar .navbar-text {
     display: none;
   }
-  #zoom-slider {
-    display: none;
-  }
 }
