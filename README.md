@@ -19,5 +19,4 @@ This app takes a HTML page from DWI and presents it in a graph format that allow
 TODOs
 -----
 
-- Make the layout responsive?
 - Make the graph touch friendly?
