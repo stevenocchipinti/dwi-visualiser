@@ -27,6 +27,18 @@
     </div>
 
     <div class="content">
+
+      <div class="auto-content">
+        <img id="loadingSpinner" alt="Loading data..." src="ajax-loader.gif"/>
+        <div id="graph"></div>
+        <div class="zoom-control control-group <%#error%>">
+          <div id="zoom-slider"></div>
+          <input type="number" id="min-zoom" class="zoom-box"/>
+          <input type="number" id="max-zoom" class="zoom-box"/>
+          <%# <div class="help-block">Invalid focal length range</div> %>
+        </div>
+      </div>
+
       <div class="fixed-sidebar lens-data well">
         <h4>
           <a id="link" target="_blank">Click a point on a lense...</a>
@@ -43,17 +55,6 @@
           <a id="preview-link" target="_blank">
             <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="lens image">
           </a>
-        </div>
-      </div>
-
-      <div class="auto-content">
-        <img id="loadingSpinner" alt="Loading data..." src="ajax-loader.gif"/>
-        <div id="graph"></div>
-        <div class="zoom-control control-group <%#error%>">
-          <div id="zoom-slider"></div>
-          <input type="number" id="min-zoom" class="zoom-box"/>
-          <input type="number" id="max-zoom" class="zoom-box"/>
-          <%# <div class="help-block">Invalid focal length range</div> %>
         </div>
       </div>
 
