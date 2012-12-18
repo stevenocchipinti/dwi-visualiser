@@ -19,4 +19,5 @@ This app takes a HTML page from DWI and presents it in a graph format that allow
 TODOs
 -----
 
-- Make the graph touch friendly?
+- Add a favicon, apple-touch-icon, etc.
+- Make the graph more touch friendly?
