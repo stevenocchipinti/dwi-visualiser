@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'json'
-require './Lens'
+require './lib/Lens'
 
 class DwiScraper
 

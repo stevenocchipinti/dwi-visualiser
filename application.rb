@@ -1,5 +1,5 @@
 require 'sinatra'
-require './DwiScraper'
+require './lib/DwiScraper'
 
 get '/' do
   erb :index
