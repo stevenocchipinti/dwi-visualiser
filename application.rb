@@ -6,7 +6,7 @@ get '/' do
 end
 
 get '/lenses/:brand' do |brand|
-  if ENV['RACK_ENV'] == 'production'
+  if production?
     url = "http://www.dwidigitalcameras.com.au/astore/#{brand.capitalize!}-Lenses.aspx"
   else
     url = "offline/#{brand.capitalize!}-Lenses.aspx"
