@@ -8,6 +8,8 @@ Status
 
 It works!
 
+[![Code Climate](https://codeclimate.com/github/stevenocchipinti/dwi-visualiser.png)](https://codeclimate.com/github/stevenocchipinti/dwi-visualiser)
+
 Description
 -----------
 
